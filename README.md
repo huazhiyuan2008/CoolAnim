@@ -2,7 +2,7 @@
 
 仿格瓦拉电影详情特技的一个demo
 
-![CoolAnim.gif](http://7xqerh.com1.z0.glb.clouddn.com/CoolAnim.gif)
+![CoolAnim.gif](https://github.com/huazhiyuan2008/CoolAnim/blob/master/art/CoolAnim.gif)
 
 录制效果有点渣，见谅~ 可下载[apk](https://github.com/huazhiyuan2008/CoolAnim/blob/master/art/app-debug.apk?raw=true)自己玩
 
