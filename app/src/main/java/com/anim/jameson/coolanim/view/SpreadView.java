@@ -67,6 +67,8 @@ public class SpreadView extends View {
         mEraserPaint.setColor(Color.TRANSPARENT);
         mEraserPaint.setXfermode(mBlender);
 
+        if (isInEditMode()) return;
+
         post(new Runnable() {
             @Override
             public void run() {

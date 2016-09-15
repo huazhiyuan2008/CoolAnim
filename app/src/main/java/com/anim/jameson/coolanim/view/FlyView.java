@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -24,7 +25,8 @@ import jameson.io.library.util.ViewUtil;
  */
 public class FlyView extends LinearLayout {
 
-    public static final long TRANS_DURATION = 400;
+    public static final long TRANS_DURATION = 500;
+    private CardView mCardView;
     private ImageView mMovieImageView;
     private SpreadView mSpreadView;
     private Rect mFromRect;
@@ -48,6 +50,7 @@ public class FlyView extends LinearLayout {
 
     private void initView() {
         inflate(getContext(), R.layout.view_fly, this);
+        mCardView = (CardView) findViewById(R.id.cardView);
         mMovieImageView = (ImageView) findViewById(R.id.movieImageView);
         mSpreadView = (SpreadView) findViewById(R.id.spreadView);
     }
@@ -57,7 +60,7 @@ public class FlyView extends LinearLayout {
         this.setVisibility(View.VISIBLE);
 
         mMovieImageView.setImageResource(imageResId);
-        mToRect = ViewUtil.getOnScreenRect(mMovieImageView);
+        mToRect = ViewUtil.getOnScreenRect(mCardView);
 
         AnimatorSet tranAnimSet = transAnim(fromRect, mToRect);
         tranAnimSet.addListener(new AnimatorListenerAdapter() {
@@ -76,10 +79,12 @@ public class FlyView extends LinearLayout {
     @NonNull
     private AnimatorSet transAnim(Rect fromRect, Rect toRect) {
         AnimatorSet tranAnimSet = new AnimatorSet();
-        ObjectAnimator transxAnim = ObjectAnimator.ofFloat(mMovieImageView, "translationX", fromRect.centerX() - toRect.centerX(), 0);
-        ObjectAnimator transyAnim = ObjectAnimator.ofFloat(mMovieImageView, "translationY", fromRect.centerY() - toRect.centerY(), 0);
+        ObjectAnimator transxAnim = ObjectAnimator.ofFloat(mCardView, "translationX", fromRect.centerX() - toRect.centerX(), 0);
+        ObjectAnimator transyAnim = ObjectAnimator.ofFloat(mCardView, "translationY", fromRect.centerY() - toRect.centerY(), 0);
+        ObjectAnimator cardElevationAnim = ObjectAnimator.ofFloat(mCardView, "cardElevation", mCardView.getMaxCardElevation(), mCardView.getMaxCardElevation(),
+                mCardView.getMaxCardElevation(), mCardView.getMaxCardElevation(), 0);
         tranAnimSet.setDuration(TRANS_DURATION);
-        tranAnimSet.play(transxAnim).with(transyAnim);
+        tranAnimSet.play(transxAnim).with(transyAnim).with(cardElevationAnim);
         tranAnimSet.setInterpolator(new AccelerateDecelerateInterpolator());
         return tranAnimSet;
     }
@@ -87,10 +92,12 @@ public class FlyView extends LinearLayout {
     @NonNull
     private AnimatorSet transAnimRevert(Rect fromRect, Rect toRect, AnimatorListenerAdapter animatorListenerAdapter) {
         AnimatorSet tranAnimSet = new AnimatorSet();
-        ObjectAnimator transxAnim = ObjectAnimator.ofFloat(mMovieImageView, "translationX", fromRect.centerX() - toRect.centerX());
-        ObjectAnimator transyAnim = ObjectAnimator.ofFloat(mMovieImageView, "translationY", fromRect.centerY() - toRect.centerY());
+        ObjectAnimator transxAnim = ObjectAnimator.ofFloat(mCardView, "translationX", fromRect.centerX() - toRect.centerX());
+        ObjectAnimator transyAnim = ObjectAnimator.ofFloat(mCardView, "translationY", fromRect.centerY() - toRect.centerY());
+        ObjectAnimator cardElevationAnim = ObjectAnimator.ofFloat(mCardView, "cardElevation", mCardView.getMaxCardElevation(), mCardView.getMaxCardElevation(),
+                mCardView.getMaxCardElevation(), mCardView.getMaxCardElevation(), 0);
         tranAnimSet.setDuration(TRANS_DURATION);
-        tranAnimSet.play(transxAnim).with(transyAnim);
+        tranAnimSet.play(transxAnim).with(transyAnim).with(cardElevationAnim);
         if (animatorListenerAdapter != null) {
             tranAnimSet.addListener(animatorListenerAdapter);
         }
@@ -115,15 +122,15 @@ public class FlyView extends LinearLayout {
                         }
 
                         // 回到初始位置
-                        mMovieImageView.animate().translationX(0).translationY(0).setDuration(1).start();
+                        mCardView.animate().translationX(0).translationY(0).setDuration(1).start();
                     }
                 }).start();
             }
         });
     }
 
-    public ImageView getMovieImageView() {
-        return mMovieImageView;
+    public View getCardView() {
+        return mCardView;
     }
 
     public interface OnAnimFinishCallback {

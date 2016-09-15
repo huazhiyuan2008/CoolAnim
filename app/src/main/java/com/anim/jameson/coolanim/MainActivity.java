@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mFlyView.getMovieImageView().setOnClickListener(new View.OnClickListener() {
+        mFlyView.getCardView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mFlyView.revertAnim(new FlyView.OnAnimFinishCallback() {
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (mGridView.getVisibility() != View.VISIBLE) {
-            mFlyView.getMovieImageView().performClick();
+            mFlyView.getCardView().performClick();
         } else {
             super.onBackPressed();
         }

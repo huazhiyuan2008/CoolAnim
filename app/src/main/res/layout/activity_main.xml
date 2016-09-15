@@ -17,15 +17,15 @@
 
     <FrameLayout
         android:id="@+id/movieFragmentLayout"
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <fragment
             android:id="@+id/movieFragment"
+            class="com.anim.jameson.coolanim.MovieFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            class="com.anim.jameson.coolanim.MovieFragment"/>
+            android:layout_height="match_parent"/>
     </FrameLayout>
 
     <com.anim.jameson.coolanim.view.FlyView
