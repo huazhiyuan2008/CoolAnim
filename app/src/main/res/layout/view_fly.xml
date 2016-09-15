@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.anim.jameson.coolanim.view.SpreadView
+        android:id="@+id/spreadView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ImageView
+        android:id="@+id/movieImageView"
+        android:layout_width="@dimen/movie_image_width"
+        android:layout_height="@dimen/movie_image_height"
+        android:layout_marginLeft="@dimen/movie_image_marginLeft"
+        android:layout_marginTop="@dimen/movie_image_marginTop"
+        android:scaleType="centerCrop"
+        android:src="@drawable/movie"
+        android:visibility="visible"/>
+
+</RelativeLayout>
